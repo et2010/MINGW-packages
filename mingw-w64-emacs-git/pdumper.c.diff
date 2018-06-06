@@ -1,0 +1,11 @@
+--- src/pdumper.c.orig	2018-06-06 23:36:56.665474700 +0800
++++ src/pdumper.c	2018-06-06 23:22:44.417014400 +0800
+@@ -136,7 +136,7 @@
+ {
+   void *mem;
+   int sz;
+-} remembered_data[32];
++} remembered_data[64];
+ static int nr_remembered_data = 0;
+ 
+ typedef int32_t dump_off;

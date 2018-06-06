@@ -4,7 +4,7 @@
 _realname='emacs'
 pkgbase=mingw-w64-${_realname}-git
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}-git"
-pkgver=r126276.66d5c75
+pkgver=r132398.faaaeceec4
 pkgrel=1
 pkgdesc="The extensible, customizable, self-documenting, real-time display editor (mingw-w64)"
 url="https://www.gnu.org/software/${_realname}/"
@@ -32,12 +32,14 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
 # Don't zip info files because the built-in info reader uses gzip to
 # decompress them. gzip is not available as a mingw binary.
 options=('strip' '!zipman')
-source=("${_realname}"::"git+https://git.savannah.gnu.org/git/${_realname}.git"
+source=("${_realname}"::"git+https://git.savannah.gnu.org/git/${_realname}.git#branch=pdumper"
         'image.c.diff'
-        'lread.c.diff')
-sha256sums=('SKIP'
-            '4571d45ec26fd556e73a70bb0ab0a2a8fa1efc5e3b3c5b472ab68bb7dc9bf52c'
-            'b9db1b7d939301d0fedf52db6ac055f7265ee5bc0c3c757e394700ca39577b7f')
+        'lread.c.diff'
+        'pdumper.c.diff')
+md5sums=('SKIP'
+         '50c264694eb87d7a5d4b53890689f476'
+         'd38bce7a419b05ec84cfd17c92cabea8'
+         '88d388baacfc23e27e9428369ae99049')
 
 pkgver() {
   cd "${_realname}"
@@ -48,6 +50,7 @@ prepare() {
   cd "${_realname}"
   patch --binary --forward -p0 < "${srcdir}/image.c.diff"
   patch --binary --forward -p0 < "${srcdir}/lread.c.diff"
+  patch --binary --forward -p0 < "${srcdir}/pdumper.c.diff"
   ./autogen.sh
 }
 
